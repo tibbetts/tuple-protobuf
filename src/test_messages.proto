@@ -1,0 +1,13 @@
+package com.streambase.services.protobuf.test;
+
+message Foo {
+  optional int32 i = 1;
+  optional bool b = 2;
+}
+
+message Bar {
+  optional Foo f1 = 1;
+  repeated int32 list = 2;
+  repeated Foo foolist = 3;
+}
+  
