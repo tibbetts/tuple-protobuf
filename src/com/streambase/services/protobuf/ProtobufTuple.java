@@ -81,7 +81,7 @@ public class ProtobufTuple {
                         if (count > 0) {
                             ArrayList<Object> list = new ArrayList<Object>(count);
                             for (int i = 0; i < count; ++i) {
-                                list.add(m.getRepeatedField(fd, i));
+                                list.add(toSBListElement(f.getCompleteDataType().getElementType(), m.getRepeatedField(fd, i)));
                             }
                             ret.setList(f, list);
                         }
@@ -104,4 +104,16 @@ public class ProtobufTuple {
         return ret;
     }
 
+    private static Object toSBListElement(CompleteDataType elementType,
+            Object value) {
+        switch (elementType.getDataType()) {
+        case TUPLE:
+            return fromProtobuf(elementType.getSchema(), (Message) value);
+        case LIST:
+            // TODO: Can this happen?
+            return value;
+        default:
+            return value;
+        }
+    }
 }
