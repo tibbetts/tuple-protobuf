@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="src" path="/clientapi"/>
-	<classpathentry kind="src" path="/sb-test-framework"/>
 	<classpathentry kind="lib" path="lib/protobuf-java-2.4.1.jar"/>
+	<classpathentry kind="con" path="com.streambase.sb.studio.jdt.clientTemplates.SBCLIENT_CONTAINER"/>
+	<classpathentry kind="con" path="com.streambase.sb.sbtest.LIBRARY_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

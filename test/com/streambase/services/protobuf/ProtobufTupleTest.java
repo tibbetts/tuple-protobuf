@@ -12,16 +12,20 @@ import com.google.protobuf.Descriptors.Descriptor;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 import com.google.protobuf.Message;
 import com.streambase.sb.CompleteDataType;
+import com.streambase.sb.DataType;
 import com.streambase.sb.Schema;
 import com.streambase.sb.Tuple;
-import com.streambase.sb.test.SchemaMaker;
 import com.streambase.services.protobuf.test.TestMessages;
 
 public class ProtobufTupleTest {
 
     @Test
     public void testConversionToProtobuf() throws Exception {
-        Schema s = new SchemaMaker().intField("i").boolField("b").makeSchema();
+        Schema s = new Schema("testSchema",
+        		              Schema.createField(DataType.INT, "i"),
+        		              Schema.createField(DataType.BOOL, "b")
+        	);
+
         Tuple t = s.createTuple();
 
         Message m = ProtobufTuple.toProtobuf(TestMessages.Foo.newBuilder(), t);
@@ -47,12 +51,17 @@ public class ProtobufTupleTest {
 
     @Test
     public void testComplexTypes() throws Exception {
-        Schema fooSchema = new SchemaMaker().intField("i").boolField("b")
-                .makeSchema();
-        Schema s = new SchemaMaker().tupleField("f1", fooSchema)
-                .listField("list", CompleteDataType.forInt())
-                .listField("foolist", CompleteDataType.forTuple(fooSchema))
-                .makeSchema();
+        Schema fooSchema = new Schema("fooSchema",
+	              Schema.createField(DataType.INT, "i"),
+	              Schema.createField(DataType.BOOL, "b")
+        		);
+        
+        Schema s = new Schema("sSchema",
+	              Schema.createTupleField("f1", fooSchema),
+	              Schema.createListField("list", CompleteDataType.forInt()),
+	              Schema.createListField("foolist", CompleteDataType.forTuple(fooSchema))
+      		);
+        
         Tuple t = s.createTuple();
 
         Message m = ProtobufTuple.toProtobuf(TestMessages.Bar.newBuilder(), t);

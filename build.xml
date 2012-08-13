@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- just to build the protobufs, not the whole Eclipse/SBStudio project -->
+<!-- put before the Java builder in Eclipse -->
+<project basedir="." default="build" name="tuple-protobuf">
+    <property environment="env"/>
+	<property name="protoc.dir" location="C:/java/protobuf-2.4.1/src"/>
+
+	<target name="build">
+        <mkdir dir="gen"/>
+    	<exec executable="${protoc.dir}/protoc"> 
+    	  <arg value="--proto_path=src" /> 
+      	  <arg value="--java_out=gen" /> 
+    	  <arg value="src/test_messages.proto" /> 
+    	</exec> 
+    </target>
+
+	<target name="clean">
+	    <delete>
+	      <fileset dir="gen" includes="**"/>
+	    </delete>
+	</target>
+
+</project>
